@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import SkeletonTable from "../common/Loading"
 
 function Dashboard() {
+  
+  let [loading,setLoading] = useState(true)
   const [isDark, setIsDark] = useState(false);
   const [data, setData] = useState([]);
 
@@ -26,6 +29,8 @@ function Dashboard() {
       }
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -74,6 +79,10 @@ function Dashboard() {
               </div>
 
               <div className="overflow-x-auto">
+              {
+                      loading ?<SkeletonTable rows={10} cols={4} />
+                      :
+                <>
                 <table className="min-w-full text-sm table-auto border-collapse border border-gray-300 dark:border-gray-700">
                   <thead>
                     <tr className="bg-gray-100 dark:bg-[#2d2f31] dark:text-[#dadce0]">
@@ -86,33 +95,36 @@ function Dashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data &&
-                      data.map((e, i) => (
-                        <tr key={i} className="bg-gray-50 dark:bg-[#282828] dark:text-[#9aa0a6]">
-                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2 ">{e.id}</td>
-                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{e.name}</td>
-                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{e.username}</td>
-                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{e.email}</td>
-                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{e.phone}</td>
-                          <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
-                            <button
-                              onClick={() => {
-                                navigate(`/edit/${e.id}`);
-                              }}
-                              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
-                              Edit
-                            </button>
-                            &nbsp; &nbsp;
-                            <button
-                             onClick={()=>handleDelete(e.id,i)}
-                              className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                      {data &&
+                        data.map((e, i) => (
+                          <tr key={i} className="bg-gray-50 dark:bg-[#282828] dark:text-[#9aa0a6]">
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2 ">{e.id}</td>
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{e.name}</td>
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{e.username}</td>
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{e.email}</td>
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">{e.phone}</td>
+                            <td className="border border-gray-300 dark:border-gray-700 px-4 py-2">
+                              <button
+                                onClick={() => {
+                                  navigate(`/edit/${e.id}`);
+                                }}
+                                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                Edit
+                              </button>
+                              &nbsp; &nbsp;
+                              <button
+                               onClick={()=>handleDelete(e.id,i)}
+                                className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300">
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                  
                   </tbody>
                 </table>
+              </>
+                  }
               </div>
             </div>
           </div>
