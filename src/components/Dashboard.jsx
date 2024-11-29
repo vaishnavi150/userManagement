@@ -67,7 +67,7 @@ function Dashboard() {
               <div className="flex justify-between items-center p-4">
                 <h4 className="text-lg font-semibold">All Users</h4>
                 <button className="border border-gray-300 rounded p-2 transition">
-                  <span class="material-icons" onClick={() => navigate("/addusers")}>
+                  <span className="material-icons" onClick={() => navigate("/addusers")}>
                     person_add
                   </span>
                 </button>

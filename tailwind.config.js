@@ -42,7 +42,6 @@ module.exports = {
           'Segoe UI Symbol', 
           'Noto Color Emoji'
         ],
-        sans: ['GothamBook', 'sans-serif'],
       },
       fontSize: {
         'fs90': '90px',

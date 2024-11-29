@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useParams, useNavigate } from "react-router-dom";
@@ -47,13 +47,18 @@ const Edit = () => {
   });
 
   const getData = async (id) => {
+    setSubmit(true)
     try {
       let res = await axios.get(`https://jsonplaceholder.typicode.com/users/${params.id}`);
       if (res.status === 200) {
         setInitialValues(res.data);
       }
+
     } catch (error) {
       toast("Error Occoured");
+    }
+    finally {
+      setSubmit(false);
     }
   };
 
