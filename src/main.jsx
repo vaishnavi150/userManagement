@@ -12,5 +12,5 @@ createRoot(document.getElementById('root')).render(
     position="top-center"
     theme="light"
     autoClose={2000} />
-  </StrictMode>,
+  </StrictMode>
 )
