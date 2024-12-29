@@ -19,6 +19,9 @@
     "react-toastify": "^10.0.6",
     "yup": "^1.4.0"
   },
+  "engines": {
+  "node": "14.00"
+},
   "devDependencies": {
     "@eslint/js": "^9.15.0",
     "@types/react": "^18.3.12",
